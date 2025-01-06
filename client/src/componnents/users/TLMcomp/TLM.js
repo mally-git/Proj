@@ -1,41 +1,60 @@
 import { Fragment, useEffect, useState } from "react"
-import { TreeTable } from 'primereact/treetable';
+import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios'
-import SetTlm from "./SetTlm";
 import { Row } from "primereact/row";
 
 const TlmTable = () => {
     const [tlmData, setTlmData] = useState([])
 
     useEffect(() => {
-        getData().then((data) => {( setTlmData(<SetTlm data={data}/>))});
-    }, []); 
+        getData()
+    }, []);
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:7410/api/tlm')
+            const res = await axios.get('http://localhost:7410/api/tlm');
             if (res.status === 200) {
-                setTlmData(res.data)
+                const formattedData = res.data.map(dat => ({
+                    source: dat.Source_id,
+                    time: dat.Time,
+                    data: dat.Data,
+                }));
+                console.log("Response Data:", res.data);
+                setTlmData(formattedData);
             }
-
         } catch (e) {
-            console.error(e)
+            console.error(e);
         }
     }
+
     return (
-        <>
-        {tlmData.map(data=><SetTlm data={data} setTlmData={setTlmData}/>)}
-            <div className="card">
-                <TreeTable value={tlmData} tableStyle={{ minWidth: '50rem' }}>
-                    <Column field="source" header="Source_id"   { key: '0', data: { source: tlmData.Source_id, size: '100kb', type: 'Folder' } }></Column>
-                    <Column field="data" header="Data"></Column>
+        <div className="card" style={{
+            width: '50%',
+            margin: '50px',
+            padding: '10px',
+            backgroundColor: '#f9f9f9',
+            borderRadius: '8px',
+            overflow: 'hidden', 
+        }}>
+            <div style={{
+                maxHeight: '400px', 
+                overflowY: 'auto',
+            }}>
+                <DataTable value={tlmData}
+                    scrollable
+                    tableStyle={{
+                        width: '100%', 
+                        backgroundColor: 'transparent',
+                    }}>
                     <Column field="time" header="Time"></Column>
-                </TreeTable>
+                    <Column field="source" header="Source_id"></Column>
+                    <Column field="data" header="Data"></Column>
+                </DataTable>
             </div>
-
-        </>
-    )
+        </div>        
+    );
 }
-export default TlmTable 
+export default TlmTable
 
+// {tlmData.map(data=><SetTlm data={data} setTlmData={setTlmData}/>)}
