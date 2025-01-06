@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 })
 app.use("/api/users", require("./Routes/User"))
 app.use("/api/tlm", require("./Routes/TLM"))
+app.use("/api/tlc", require("./Routes/TLC"))
 
 process.on('uncaughtException', (err) => {
     console.error('Unhandled Exception:', err);

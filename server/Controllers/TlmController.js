@@ -3,7 +3,7 @@ const TLM = require("../Models/TLM")
 const getAll=async(req,res)=>{
     const tlm=await TLM.find().lean()
     if(!tlm){
-        return res.status(400).json({ error: "name and username are required" });
+        return res.status(400).json({ error: "source and data and time are required" });
     }
     res.json(tlm)
 }
@@ -37,7 +37,7 @@ const DeleteTLM=async (req,res)=>{
     }
     const tlm= await TLM.findById(_id).exec()
     if(!tlm){
-        return res.status(400).json({ error: "Thier is no user" });
+        return res.status(400).json({ error: "Thier is no tlm" });
     }
     const dele=await tlm.deleteOne()
     const tlmm=await TLM.find().lean()
@@ -47,7 +47,7 @@ const DeleteTLM=async (req,res)=>{
 const CreateTLM=async(req,res)=>{
 const {Source_id,Data,Time}=req.body
 if(!Source_id || !Data || !Time){
-    return res.status(400).json({ error: "Source_id and Data are required" });
+    return res.status(400).json({ error: "Source_id and Data and Time are required" });
 }
 const tlm= await TLM.create({Source_id:Source_id,Data:Data,Time:Time})
 if(!tlm){

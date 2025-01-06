@@ -35,24 +35,28 @@ const TlmTable = () => {
             padding: '10px',
             backgroundColor: '#f9f9f9',
             borderRadius: '8px',
-            overflow: 'hidden', 
+            overflow: 'hidden',
         }}>
             <div style={{
-                maxHeight: '400px', 
+                maxHeight: '400px',
                 overflowY: 'auto',
             }}>
-                <DataTable value={tlmData}
+                <DataTable
+                    value={tlmData}
                     scrollable
+                    scrollHeight="100%"
+                    stickyHeader
                     tableStyle={{
-                        width: '100%', 
+                        width: '100%',
                         backgroundColor: 'transparent',
-                    }}>
+                    }}
+                >
                     <Column field="time" header="Time"></Column>
                     <Column field="source" header="Source_id"></Column>
                     <Column field="data" header="Data"></Column>
                 </DataTable>
             </div>
-        </div>        
+        </div>
     );
 }
 export default TlmTable
