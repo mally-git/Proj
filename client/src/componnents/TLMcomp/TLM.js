@@ -27,7 +27,11 @@ const TlmTable = () => {
             console.error(e);
         }
     }
-
+    const rowClassName  = (data) => {
+        console.log(data)
+        return data.source === '9976' ?  {source:'rrrr'} : ''; // צבע אדום בהיר לשורה
+         // אם source_id שווה ל-AAA, תחזיר class מיוחד
+    };
     return (
         <div className="card" style={{
             width: '50%',
@@ -45,14 +49,15 @@ const TlmTable = () => {
                     value={tlmData}
                     scrollable
                     scrollHeight="100%"
-                    stickyHeader
+
                     tableStyle={{
                         width: '100%',
                         backgroundColor: 'transparent',
                     }}
+                    rowClassName={rowClassName}
                 >
                     <Column field="time" header="Time"></Column>
-                    <Column field="source" header="Source_id"></Column>
+                    <Column field="source" header="Source_id" ></Column>
                     <Column field="data" header="Data"></Column>
                 </DataTable>
             </div>
