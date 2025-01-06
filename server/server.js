@@ -15,6 +15,8 @@ app.get("/", (req, res) => {
     res.send("Home Page shira baran")
 })
 app.use("/api/users", require("./Routes/User"))
+app.use("/api/tlm", require("./Routes/TLM"))
+
 process.on('uncaughtException', (err) => {
     console.error('Unhandled Exception:', err);
 });
