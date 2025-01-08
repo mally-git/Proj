@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios'
-import { Row } from "primereact/row";
+import React from 'react';
 
 const TlmTable = () => {
     const [tlmData, setTlmData] = useState([])
@@ -13,7 +13,7 @@ const TlmTable = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:7410/api/tlm');
+            const res = await axios.get('http://localhost:8670/api/tlm');
             if (res.status === 200) {
                 const formattedData = res.data.map(dat => ({
                     source: dat.Source_id,
@@ -27,10 +27,15 @@ const TlmTable = () => {
             console.error(e);
         }
     }
-    const rowClassName  = (data) => {
-        console.log(data)
-        return data.source === '9976' ?  {source:'rrrr'} : ''; // צבע אדום בהיר לשורה
-         // אם source_id שווה ל-AAA, תחזיר class מיוחד
+    const rowClassName = (item) => {
+        console.log(item)
+        console.log('d', item.source);
+        // data.source == '1234' ? 'red' : 'blue';
+        if (item.source === '1234') {
+            console.log("wowwwwwwww");
+            return 'red'
+        }
+        return 'black'
     };
     return (
         <div className="card" style={{
@@ -48,17 +53,17 @@ const TlmTable = () => {
                 <DataTable
                     value={tlmData}
                     scrollable
-                    scrollHeight="100%"
+                    scrollHeight="400px"
 
                     tableStyle={{
                         width: '100%',
                         backgroundColor: 'transparent',
                     }}
-                    rowClassName={rowClassName}
+                rowClassName={rowClassName}
                 >
-                    <Column field="time" header="Time"></Column>
-                    <Column field="source" header="Source_id" ></Column>
-                    <Column field="data" header="Data"></Column>
+                    <Column field="time" header="Time" style={{ color: `${(e)=>rowClassName(e.value)}` }} ></Column>
+                    <Column field="source" header="Source_id" style={{ color: `${(e)=>rowClassName(e.value)}` }} ></Column>
+                    <Column field="data" header="Data" style={{ color: `${(e)=>rowClassName(e.value)}` }}></Column>
                 </DataTable>
             </div>
         </div>

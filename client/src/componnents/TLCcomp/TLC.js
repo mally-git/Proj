@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { PickList } from 'primereact/picklist';
-import { Dropdown } from 'primereact/dropdown';
-
+// import { PickList } from 'primereact/picklist';
+// import { Dropdown } from 'primereact/dropdown';
+import { ListBox } from 'primereact/listbox';
+//import { scrollable } from 'primereact/scrollable';
+import { useOverlayListener } from 'primereact/hooks';
+import { Button } from 'primereact/button';
 import axios from 'axios'
+import { Checkbox } from "primereact/checkbox";
+
 
 
 const CreateTlc = () => {
     const [tlcData, setTlcData] = useState([]);
+    const [selectTlc, setSelectTlc] = useState(null);
     const [edit, setedit] = useState([]);
-    const [source, setSource] = useState([]);
-    const [target, setTarget] = useState([]);
+    const [collection, setCollection] = useState([]);
+    const [checkIn, setCheckIn] = useState(false)
+    const [checked,setChecked]=useState(false)
 
     useEffect(() => {
         getData()
@@ -17,12 +24,11 @@ const CreateTlc = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:7410/api/tlc');
+            const res = await axios.get('http://localhost:8670/api/tlc');
             if (res.status === 200) {
                 console.log("Response Data:", res.data);
                 const names = res.data.map(d => ({ id: d._id, Name: d.Name }))
-                // setTlcData(names)
-                setSource(names)
+                setTlcData(names)
             }
         } catch (e) {
             console.error(e);
@@ -32,61 +38,84 @@ const CreateTlc = () => {
 
     const onChange = (event) => {
         //setSource(event.source);
-        setTarget(event.target);
+        //setTarget(event.target);
 
     };
 
-    const itemTemplate = (item) => {
-        return (
-            <div className="flex flex-wrap p-2 align-items-center gap-3">
-                <div className="flex-1 flex flex-column gap-2">
-                    <span className="font-bold">{item.Name}</span>
-                </div>
-            </div>
-        );
-    };
+    console.log("setSelectTlc",setSelectTlc)
 
+    const collectChoosenCom = (selectTlc) = {
+
+    //  collection:[...collection, item]
+     }
 
     return (
-        <div className="card">
-            <PickList
-                dataKey="id"
-                source={source}
-                target={target}
+        <>
+            <h>Commands</h>
+            <div className="card flex justify-content-center" style={{
+                width: '25%',
+                margin: '50px',
+                padding: '10px',
+                backgroundColor: '#f9f9f9',
+                borderRadius: '8px',
+                overflow: 'auto',
+                maxHeight: '400px',
+                //overflowY: 'auto'
+            }}>
 
-                onChange={onChange}
-                itemTemplate={itemTemplate}
-                breakpoint="1280px"
-                sourceHeader="Commands"
-                targetHeader="Edit"
-                sourceStyle={{ height: '24rem' }}
-            //targetStyle={{ height: '24rem' }}
-            />
-            <div className='card'>
-                <Dropdown
-                    value={target}
-                    onChange={(e) => setTarget(e.value)}
-                    options={target}
+                <ListBox
+                    scrollable
+                    scrollHeight="300px"
+                    multiple value={selectTlc}
+                    onChange={(e) => { setChecked(e.checked) }}
+                    //<Checkbox onChange={e => setChecked(e.checked)} checked={checked}></Checkbox>
+                    // {Checkbox onChange={e => setChecked(e.checked)} checked={checked} }
+                    options={tlcData}
+
                     optionLabel="Name"
-                    placeholder="Select a C"
-                    className="w-full md:w-14rem"
-                    style={{ minWidth: '14rem' }}
-                />
-            </div>
-        </div>
+                    className="w-full md:w-14rem" />
 
-        //      <div className="card flex justify-content-center">
-        //      <Dropdown
-        //        value={selectedCountry}
-        //        onChange={(e) => setSelectedCountry(e.value)}
-        //        options={countries}
-        //        optionLabel="name"
-        //        placeholder="Select a City"
-        //        className="w-full md:w-14rem"
-        //        style={{ minWidth: '14rem' }}
-        //      />
-        //    </div>
-    );
+            </div>
+
+            <div className="card flex justify-content-center">
+                <Button label="Add"
+                    severity="secondary"
+                    style={{ marginRight: "15%" }} />
+            </div>
+        </>
+    )
+
+
+    {/* // return (
+    //     <div className="card">
+    //         {/* <PickList
+    //             dataKey="id"
+    //             source={source}
+    //             //target={target}
+
+    //             onChange={onChange}
+    //             itemTemplate={itemTemplate}
+    //             breakpoint="1280px"
+    //             sourceHeader="Commands"
+    //             //targetHeader="Edit"
+    //             sourceStyle={{ height: '24rem' }}
+    //         //targetStyle={{ height: '24rem' }}
+    //         /> */}
+    //         <div className='card'>
+    //             <Dropdown
+    //                 value={target}
+    //                 onChange={(e) => setTarget(e.value)}
+    //                 options={target}
+    //                 optionLabel="Name"
+    //                 placeholder="Select a C"
+    //                 className="w-full md:w-14rem"
+    //                 style={{ minWidth: '14rem' }}
+    //             />
+    //         </div>
+    //     </div>
+
+
+    //); */}
 }
 export default CreateTlc
 

@@ -3,13 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from "react-router-dom"
+import { BrowserRouter } from "react-router-dom"
+import { PrimeReactProvider } from 'primereact/api';
+import "primereact/resources/themes/lara-light-indigo/theme.css";     
+    
+//core
+import "primereact/resources/primereact.min.css";  
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter >
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+      <PrimeReactProvider>
+        <App />
+      </PrimeReactProvider>
+    </React.StrictMode>
   </BrowserRouter>
 );
 
