@@ -13,7 +13,7 @@ const TlmTable = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:8670/api/tlm');
+            const res = await axios.get('http://localhost:7410/api/tlm');
             if (res.status === 200) {
                 const formattedData = res.data.map(dat => ({
                     source: dat.Source_id,
