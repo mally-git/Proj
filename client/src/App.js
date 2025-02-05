@@ -4,7 +4,8 @@ import TlmTable from './componnents/TLMcomp/TLM';
 import 'primereact/resources/themes/lara-light-indigo/theme.css'; 
 import 'primereact/resources/primereact.min.css'; 
 import 'primeicons/primeicons.css'; 
-import CreateTlc from './componnents/TLCcomp/TLC';
+
+import CreateTlc from './componnents/TLCcomp/TLCpage';
 import { Routes,Route } from 'react-router-dom';
 function App() {
   return (

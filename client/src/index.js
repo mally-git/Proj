@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom"
 import { PrimeReactProvider } from 'primereact/api';
 import "primereact/resources/themes/lara-light-indigo/theme.css";     
-    
+import DatePicker from '@mui/lab/DatePicker';
+import '@fontsource/roboto';
 //core
 import "primereact/resources/primereact.min.css";  
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   <BrowserRouter >
     <React.StrictMode>
       <PrimeReactProvider>
@@ -18,6 +20,7 @@ root.render(
       </PrimeReactProvider>
     </React.StrictMode>
   </BrowserRouter>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

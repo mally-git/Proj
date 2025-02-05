@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.custom-table .red-row {
+  background-color: rgb(245, 47, 47) ;
+  color: rgb(255, 255, 255) ;
+}
+
+.custom-table .default-row {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+

@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios'
+
 import React from 'react';
 
 const TlmTable = () => {
@@ -30,12 +31,11 @@ const TlmTable = () => {
     const rowClassName = (item) => {
         console.log(item)
         console.log('d', item.source);
-        // data.source == '1234' ? 'red' : 'blue';
-        if (item.source === '1234') {
+        if (item.source === '12344' || item.source === '55555') {
             console.log("wowwwwwwww");
-            return 'red'
+            return 'red-row';
         }
-        return 'black'
+        return 'default-row ';
     };
     return (
         <div className="card" style={{
@@ -59,11 +59,15 @@ const TlmTable = () => {
                         width: '100%',
                         backgroundColor: 'transparent',
                     }}
-                rowClassName={rowClassName}
+                    className="custom-table"
+                    rowClassName={rowClassName}
                 >
-                    <Column field="time" header="Time" style={{ color: `${(e)=>rowClassName(e.value)}` }} ></Column>
-                    <Column field="source" header="Source_id" style={{ color: `${(e)=>rowClassName(e.value)}` }} ></Column>
-                    <Column field="data" header="Data" style={{ color: `${(e)=>rowClassName(e.value)}` }}></Column>
+                    <Column field="time" header="Time" //bodyStyle={(rowTime) => rowClassName(rowTime.source)} 
+                    ></Column>
+                    <Column field="source" header="Source_id" //bodyStyle={(rowSource_id) => rowClassName(rowSource_id.source)}
+                    ></Column>
+                    <Column field="data" header="Data" //bodyStyle={(rowData) => rowClassName(rowData.source)}
+                    ></Column>
                 </DataTable>
             </div>
         </div>

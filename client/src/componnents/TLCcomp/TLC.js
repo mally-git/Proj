@@ -12,6 +12,8 @@ import { MultiSelect } from 'primereact/multiselect';
 import { OrganizationChart } from 'primereact/organizationchart';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+// import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 const CreateTlc = () => {
@@ -46,7 +48,6 @@ const CreateTlc = () => {
     const onCheckboxChange = (e, itemId) => {
         setCheckedItems({ ...checkedItems, [itemId]: e.checked });
         console.log('fff', checkedItems);
-
     };
 
     const SendToSelect = () => {
@@ -78,7 +79,6 @@ const CreateTlc = () => {
         const selectValue = e.value
         setSelected(selectValue)
         ShowObject(selectValue)
-
     }
 
     return (
@@ -102,7 +102,10 @@ const CreateTlc = () => {
                     value={selectTlc}
                     onChange={(e) => setSelectTlc(e.value)}
                     options={tlcData}
-
+                    listStyle={{
+                        width: '100%',
+                        backgroundColor: 'transparent',
+                    }}
 
                     optionLabel="Name"
                     itemTemplate={(option) => (
@@ -133,20 +136,20 @@ const CreateTlc = () => {
                     className="w-full md:w-14rem"
                 />
 
-            </div>
+            </div> 
             <div className="card flex justify-content-center">
                 <Button label="Add"
                     severity="success"
                     style={{ position: 'relative', top: '20px', right: '35%', fontFamily: 'inherit', fontSize: '20px' }}
                     onClick={handleAddClick} />
                 {showTlcAdd}
-                {/* {showTlcAdd && (
+                 {/* {showTlcAdd && (
                     <TlcAdd setCollection={collection} collection={collection} />
                 )}*/}
             </div>
             <h1 style={{ size: "100px", position: 'relative', left: '20%', top: '-615px', color: "cadetblue", fontFamily: 'inherit' }}>Edit</h1>
 
-            <div className="card flex justify-content-center" style={{
+            {/* <div className="card flex justify-content-center" style={{
                 width: '35%',
                 top: '-590px',
                 position: 'relative',
@@ -163,18 +166,47 @@ const CreateTlc = () => {
                     onChange={onChange} options={collection} //optionLabel="id"
                     placeholder="Select One" maxSelectedLabels={1} //className="w-full md:w-20rem" 
                 />
-            </div>
+            </div> */}
             {/* <div className="card overflow-x-auto">
                 <OrganizationChart value={tlcDataById || {expanded:false}} />
             </div> */}
-            <div>
-                <DataTable value={tlcDataById} tableStyle={{ minWidth: '50rem' }}>
+            {console.log(tlcDataById)}
+            <div className="card" style={{
+                width: '25%',
+                margin: '50px',
+                padding: '10px',
+                backgroundColor: '#f9f9f9',
+                borderRadius: '8px',
+                //overflow: 'hidden',
+            }}>
+                <DataTable value={tlcDataById} tableStyle={{
+                    minWidth: '50rem', width: '100%',
+                    backgroundColor: 'transparent',
+                }}>
                     <Column field="Name" header="Name"></Column>
                     <Column field="Opcode" header="Opcode"></Column>
                     <Column field="Data" header="Data"></Column>
                 </DataTable>
             </div>
             {console.log(tlcDataById)}
+            <div className="card flex justify-content-center" style={{
+                width: '35%',
+                top: '-590px',
+                position: 'relative',
+                left: '55%',
+                padding: '10px',
+                backgroundColor: '#f9f9f9',
+                borderRadius: '8px',
+                overflow: 'auto',
+                maxHeight: '420px',
+            }}>
+                <Autocomplete
+                    disablePortal
+                    options={collection}
+                    sx={{ width: 300 }}
+                    renderInput={checkedItems}
+                />
+            </div>
         </>
     )
 }
