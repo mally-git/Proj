@@ -79,7 +79,7 @@ const CreateTlc = () => {
                 width: '25%',
                 top: '70px',
                 margin: '50px',
-                padding: '10px',
+                padding: '6px',
                 backgroundColor: '#f9f9f9',
                 borderRadius: '8px',
                 overflow: 'auto',
@@ -87,13 +87,14 @@ const CreateTlc = () => {
                 //overflowY: 'auto'
             }}>
                 
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' ,padding:"20px"}}>
                     {tlcData.map((value) => {
                         const labelId = `${value.Name}`;
                         return(
                         <ListItem
                             key={value.id}
                             disablePadding
+                            style={{padding:"2px"}}
                         >
                             <ListItemButton onClick={() => handleToggle(value)} dense>
                                 <ListItemIcon>
