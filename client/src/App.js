@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/TLM" element={<TlmTable/>}/>
         <Route path="/TLC" element={<CreateTlc/>}/>
+        <Route path="/TLMtt" element={<TlmTable/>}/>
       </Routes>
       
       

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react"
+import { Fragment,useRef, useEffect, useState } from "react"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios'
@@ -7,22 +7,42 @@ import React from 'react';
 
 const TlmTable = () => {
     const [tlmData, setTlmData] = useState([])
+    const listRef = useRef(null);
+
+    // useEffect(() => {
+    //     getData()
+
+    //     const interval = setInterval(getData, 1000);
+
+    //     return () => clearInterval(interval);
+    // }, []);
+
+
 
     useEffect(() => {
-        getData()
-    }, []);
+        setTimeout(() => {
+            
+                listRef.current.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });            }
+        ); // מחכה 100ms ואז גולל
+    
+    }, [tlmData]);
+
+
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:7410/api/tlm');
+            const res = await axios.get('http://localhost:5095/api/tlm/randomNumbers');
+            //await WebSocket('ws://localhost:5000/ws') 
             if (res.status === 200) {
+                console.log("Response Data:", res.data);
                 const formattedData = res.data.map(dat => ({
                     source: dat.Source_id,
                     time: dat.Time,
                     data: dat.Data,
                 }));
-                console.log("Response Data:", res.data);
-                setTlmData(formattedData);
+
+                setTlmData(prevData => [...prevData, ...formattedData]);
+                //setTlmData(formattedData);
             }
         } catch (e) {
             console.error(e);
@@ -38,7 +58,7 @@ const TlmTable = () => {
         return 'default-row ';
     };
     return (
-        <div className="card" style={{
+        <div className="card"  style={{
             width: '50%',
             margin: '50px',
             padding: '10px',
@@ -46,9 +66,10 @@ const TlmTable = () => {
             borderRadius: '8px',
             overflow: 'hidden',
         }}>
-            <div style={{
+            <div  style={{
                 maxHeight: '400px',
                 overflowY: 'auto',
+                
             }}>
                 <DataTable
                     value={tlmData}
