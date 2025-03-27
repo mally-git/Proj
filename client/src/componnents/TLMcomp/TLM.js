@@ -10,18 +10,19 @@ import React from 'react';
 const TlmTable = () => {
     const [tlmData, setTlmData] = useState([])
     const [maxRowInTable, setMaxRowInTable] = useState(10);
+    const [tempMaxRow, setTempMaxRow] = useState(10);
     const [isActive, setIsActive] = useState(true);
     const tlmDataRef = useRef(tlmData);
 
-    useEffect(() => {
-        console.log('isActive', isActive);
-        if (!isActive) {
-            return
-        }
-        getData()
-        const interval = setInterval(getData, 500);
-        return () => clearInterval(interval);
-    }, [isActive]);
+    // useEffect(() => {
+    //     console.log('isActive', isActive);
+    //     if (!isActive) {
+    //         return
+    //     }
+    //     getData()
+    //     const interval = setInterval(getData, 500);
+    //     return () => clearInterval(interval);
+    // }, [isActive]);
 
 
     // useEffect(() => {
@@ -62,7 +63,8 @@ const TlmTable = () => {
 
     }
 
-    const MaxRows = () => {
+    const MaxRows = (event) => {
+        setMaxRowInTable(event.target.value)
         console.log("maxRowInTable", maxRowInTable);
         console.log("tlmData.length---maxRowInTable", tlmData.length - maxRowInTable);
         if (tlmDataRef.current.length > Number(maxRowInTable)) {
@@ -125,11 +127,19 @@ const TlmTable = () => {
                 // noValidate
                 autoComplete="off">
                 <TextField id="outlined-basic" label="Max Telemeters" variant="outlined"
-                    value={maxRowInTable}
-                    onChange={(e) => (setMaxRowInTable(e.target.value), setIsActive(true))}
+                    value={tempMaxRow}
+                    onChange={(e) =>{
+                        console.log("e",e);
+                        console.log("e.target",e.target);
+                         setTempMaxRow(e.target.value.toString())
+                        }}
                 />
                 <Button variant="contained" style={{ position: 'fixed', left: '70%', top: '85%' }}
-                    onClick={MaxRows}
+                    onClick={() => {
+                        setMaxRowInTable(Number(tempMaxRow));
+                        setIsActive(true);
+                        MaxRows()
+                    }}
                 >slice</Button>
 
             </div>
