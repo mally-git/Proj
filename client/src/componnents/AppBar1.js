@@ -10,12 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 const Appbar = () => {
-    const [value, setValue] = useState(null);
+    // const [haveTitel, sethaveTitel] = useState(false);
+    const [value, setValue] = useState();
     const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
     const open = Boolean(anchorEl);
-    const newValue='HOME';
-    const handleChange = (event ) => {
+    const handleChange = (event) => {
         setAnchorEl(null);
         const newValue=event.currentTarget.textContent;
         console.log("newValue", newValue);
@@ -72,7 +72,7 @@ const Appbar = () => {
                             <MenuItem onClick={handleChange}>TLC PAGE</MenuItem>
                         </Menu>
 
-                        <Typography variant="h6" color="inherit" component="div">
+                        <Typography variant="h6" color="inherit" component="div" position= 'relative'>
                         {value}
                         </Typography>
                     </Toolbar>

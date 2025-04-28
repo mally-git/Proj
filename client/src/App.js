@@ -7,7 +7,7 @@ import 'primeicons/primeicons.css';
 import Appbar from './componnents/AppBar1';
 import CreateTlc from './componnents/TLCcomp/TLCpage';
 import { Routes,Route,Router } from 'react-router-dom';
-import Home from './componnents/HomePage';
+import Home from './componnents/HomeComp/HomePage';
 
 
 function App() {
