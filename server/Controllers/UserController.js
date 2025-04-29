@@ -55,4 +55,6 @@ if(!user){
 const users= await User.find().lean()
 return res.json(users)
 }
+
+
 module.exports={getAll,CreateUser,updateUser,DeleteUser}
