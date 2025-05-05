@@ -64,8 +64,8 @@ const CreateTLC = async (req, res) => {
     if (!tlc) {
         return res.status(400).send("Failes in create")
     }
-    const tlcc = await TLC.find().lean()
-    return res.json(tlcc)
+    // const tlcc = await TLC.find().lean()
+    return res.json(tlc)
 }
 
 module.exports = { getAll, CreateTLC, updateTlc, DeleteTLC, getOneName }

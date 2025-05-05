@@ -5,21 +5,23 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom"
 import { PrimeReactProvider } from 'primereact/api';
-import "primereact/resources/themes/lara-light-indigo/theme.css";     
-import DatePicker from '@mui/lab/DatePicker';
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import { Provider } from 'react-redux';
 import '@fontsource/roboto';
-//core
-import "primereact/resources/primereact.min.css";  
+import "primereact/resources/primereact.min.css";
+import { store } from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor } from './redux/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
-  <BrowserRouter >
-    <React.StrictMode>
-      <PrimeReactProvider>
+  <BrowserRouter>
+    <Provider store={store} >
+      <PersistGate loading={null} persistor={persistor}>
         <App />
-      </PrimeReactProvider>
-    </React.StrictMode>
+      </PersistGate>
+    </Provider>
   </BrowserRouter>
+
 
 );
 

@@ -1,7 +1,7 @@
 import { Fragment, useRef, useEffect, useState } from "react"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import SimpleDialog from "../HomeComp/OptionsWindow1"
+import SimpleDialog from "./OptionsWindow1"
 
 
 const Home = () => {

@@ -17,11 +17,11 @@ const login = async (req, res) => {
     const userInfo = {
         _id: foundUser._id, name: foundUser.name,
         roles: foundUser.roles, username: foundUser.username,
-        email: foundUser.email
+        email: foundUser.email,phone:foundUser.phone
     }
 
     const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET)
-    res.json({ accessToken: accessToken })
+    res.json({ accessToken: accessToken ,user:userInfo})
 }
 
 const register = async (req, res) => {
