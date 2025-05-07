@@ -2,6 +2,7 @@ import { Fragment, useRef, useEffect, useState } from "react"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SimpleDialog from "./OptionsWindow1"
+import { Box } from "@mui/material";
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
 
     return (
         <>
+        <Box sx={{ width: '100%',height:'50%', bgcolor: '#e6f7ff', minHeight: '100vh', paddingTop: '16px' }}>
             <h1>welcom to IAI Project</h1>
             {/* <h1>שלום לנתנאל ברן 😍🤣😁😎💖😶‍🌫️🥰😎🥲🥱🙃🫠😭😤😖🌭🍟🍕</h1> */}
             <h2>the home page</h2>
@@ -37,6 +39,7 @@ const Home = () => {
                 <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} connectionTypes={connectionTypes}
                 />
             </div>
+            </Box>
         </>
     )
 }

@@ -9,31 +9,38 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios'
 import TLCcheckBox from './TLClist';
-import TlcAdd from './TLCadd';
+import { Card } from '@mui/material';
 
+import TlcAdd from './TLCadd';
+import { useDispatch, useSelector } from "react-redux";
 
 
 const CreateTlc = () => {
     const [tlcData, setTlcData] = useState([]);
     const [checked, setChecked] = useState([0]);
-    
+    const token = useSelector((state) => state.token.token || '')
 
     useEffect(() => {
         getData();
-        console.log("useeffect",tlcData);
+        console.log("useeffect", tlcData);
     }, []);
 
     const saveToCheckBox = (checked) => {
         setChecked([...checked])
-        console.log("send",checked);
+        console.log("send", checked);
     }
 
     const getData = async () => {
         try {
-            const res = await axios.get('http://localhost:7410/api/tlc');
+            console.log("token", token);
+            const res = await axios.get('http://localhost:7410/api/tlc', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             if (res.status === 200) {
                 console.log("Response Data:", res.data);
-                const names = res.data.map(d => ({ id: d._id, Name: d.Name,Opcode:d.Opcode,Data:d.Data }))
+                const names = res.data.map(d => ({ id: d._id, Name: d.Name, Opcode: d.Opcode, Data: d.Data }))
                 setTlcData(names)
             }
         } catch (e) {
@@ -53,57 +60,64 @@ const CreateTlc = () => {
 
         setChecked(newChecked);
     };
-    
+
     return (
         <>
-            <div style={{
-                width: '25%',
-                top: '70px',
-                margin: '50px',
-                padding: '6px',
-                backgroundColor: '#f9f9f9',
-                borderRadius: '8px',
-                overflow: 'auto',
-                maxHeight: '420px',
-                //overflowY: 'auto'
-            }}>
-                
-                <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' ,padding:"20px"}}>
+            <Card
+                sx={{
+                    width: {
+                        xs: '95%',
+                        sm: '75%',
+                        md: '45%',
+                        lg: '35%'
+                    },
+                    margin: '10px ',
+                    left:'50px', // מרכז את הכרטיס ומוסיף רווח מסביב
+                    padding: '12px',
+                    borderRadius: '10px',
+                    maxHeight: '450px',
+                    overflowY: 'auto',
+                    boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.1)', // בולט יותר
+                }}
+            >
+                <List 
+                sx={{ width: '100%', padding: '8px' }}
+                >
                     {tlcData.map((value) => {
                         const labelId = `${value.Name}`;
-                        return(
-                        <ListItem
-                            key={value.id}
-                            disablePadding
-                            style={{padding:"2px"}}
-                        >
-                            <ListItemButton onClick={() => handleToggle(value)} dense>
-                                <ListItemIcon>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={checked.includes(value)}
-                                        tabIndex={-1}
-                                        disableRipple
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={value.Name} />
-                            </ListItemButton>
-                        </ListItem>
-                        )
+                        <h>tlc</h>
+                        return (
+                        <>
+                       
+                            <ListItem key={value.id} disablePadding sx={{ padding: '4px' }}>
+                                <ListItemButton onClick={() => handleToggle(value)} dense>
+                                    <ListItemIcon>
+                                        <Checkbox
+                                            edge="start"
+                                            checked={checked.includes(value)}
+                                            tabIndex={-1}
+                                            disableRipple
+                                            inputProps={{ 'aria-labelledby': labelId }}
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText id={labelId} primary={value.Name} />
+                                </ListItemButton>
+                            </ListItem>
+                            </>
+                        );
                     })}
                 </List>
-            </div>
+            </Card>
 
-            <div>
-                <Button variant="outlined" endIcon={<SendIcon />} onClick={() =>saveToCheckBox(checked)}
-                    style={{ position: 'relative', top: '20px', right: '35%', fontSize: '20px' }}
-                >
-                    Send
-                </Button>
-                
-            </div>
-            <TLCcheckBox checked={checked}  setChecked={setChecked}/>
+
+            <Button variant="outlined" endIcon={<SendIcon />} onClick={() => saveToCheckBox(checked)}
+                style={{ position: 'relative', top: '5%', right: '30%', fontSize: '20px' }}
+            >
+                Send
+            </Button>
+
+
+            <TLCcheckBox checked={checked} setChecked={setChecked} />
         </>
     )
 }

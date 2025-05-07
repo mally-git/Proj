@@ -63,24 +63,21 @@ const TlmTable = () => {
 
     }
 
-    const MaxRows = (event) => {
-        setMaxRowInTable(event.target.value)
+    const MaxRows = () => {
         console.log("maxRowInTable", maxRowInTable);
         console.log("tlmData.length---maxRowInTable", tlmData.length - maxRowInTable);
+    
         if (tlmDataRef.current.length > Number(maxRowInTable)) {
-            console.log("if", maxRowInTable);
             setTlmData(prevData => {
                 const newData = prevData.slice(-Number(maxRowInTable));
-                tlmDataRef.current = newData; // עדכון ה-ref כדי למנוע בעיות בתנאים
+                tlmDataRef.current = newData; 
                 return newData;
-            })
-            setIsActive(false)
+            });
+            setIsActive(false);
+        } else {
+            setIsActive(true);
         }
-        else {
-            console.log("else", maxRowInTable);
-            setIsActive(true)
-        }
-    }
+    };
 
     const rowClassName = (item) => {
         if (item.source === 123454 || item.source === 45455) {
@@ -101,7 +98,7 @@ const TlmTable = () => {
             }}>
                 <div>
                     <DataTable
-                        value={tlmData}
+                        value={tlmData||null}
                         scrollable
                         scrollHeight="600px"
                         tableStyle={{
@@ -126,13 +123,15 @@ const TlmTable = () => {
             }}
                 // noValidate
                 autoComplete="off">
-                <TextField id="outlined-basic" label="Max Telemeters" variant="outlined"
+                <TextField
+                    id="outlined-basic"
+                    label="Max Telemeters"
+                    variant="outlined"
                     value={tempMaxRow}
-                    onChange={(e) =>{
-                        console.log("e",e);
-                        console.log("e.target",e.target);
-                         setTempMaxRow(e.target.value.toString())
-                        }}
+                    onChange={(e) => {
+                        setTempMaxRow(e.target.value.toString());
+                        MaxRows(e); // כאן אתה שולח את האירוע לפונקציה
+                    }}
                 />
                 <Button variant="contained" style={{ position: 'fixed', left: '70%', top: '85%' }}
                     onClick={() => {

@@ -30,7 +30,7 @@ const TLCcheckBox = (props) => {
             return;
         }
         const findById = props.checked.find((item) => value.id === item.id)
-        setToShow({...findById})
+        setToShow({ ...findById })
     }
     const DemoPaper = styled(Paper)(({ theme }) => ({
         width: 120,
@@ -54,35 +54,32 @@ const TLCcheckBox = (props) => {
 
     return (
         <>
-            <div style={{
-                width: '21%',
-                top: '-500px',
-                position: 'relative',
-                left: '54%',
-                padding: '10px',
-                backgroundColor: '#f9f9f9'
-            }}>
-               
+            {/* <main style={{
+                backgroundColor: '#e6f7ff',
+            }}> */}
                 <Autocomplete
+                    style={{
+                        width: '21%',
+                        top: '-500px',
+                        position: 'relative',
+                        left: '54%',
+                    }}
                     disablePortal
                     options={props.checked}
                     getOptionLabel={(option) => option.Name} // מציג רק את השדה 'name'
-                    sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Edit" />}
                     onChange={(event, value) => sendtoshow(value)}
                 />
-            </div>
-            <div style={{
-                width: '28%',
-                top: '-450px',
-                position: 'relative',
-                left: '51%',
-                padding: '10px',
-                backgroundColor: '#f9f9f9',
-                overflow: 'auto',
-                maxHeight: '420px',
-            }}>
-                <Stack direction="row" spacing={3}>
+
+                <Stack direction="row" spacing={3} style={{
+                    width: '28%',
+                    top: '-450px',
+                    position: 'relative',
+                    left: '51%',
+                    padding: '10px',
+                    overflow: 'auto',
+                    maxHeight: '420px',
+                }}>
                     <Stack direction="column" spacing={1} alignItems="center">
                         <h4>Name</h4>
                         <DemoPaper square>{toShow.Name}</DemoPaper>
@@ -98,35 +95,39 @@ const TLCcheckBox = (props) => {
                         <DemoPaper square>{toShow.Data}</DemoPaper>
                     </Stack>
                 </Stack>
-            </div>
-            <div>
-                <Button variant="outlined" endIcon={<AddCircleOutlineIcon />}
-                    onClick={() => ToKeep(toShow)}
-                    style={{ position: 'relative', top: '-420px', left: '21%', fontSize: '-50px' }}>
-                    Add
-                </Button>
-            </div>
-            <div>
-                <Button variant="outlined" endIcon={<DeleteOutlineIcon />}
-                    onClick={() => sendTobla()}
-                    style={{ position: 'relative', top: '-456px', left: '11%', fontSize: '-50px' }}>
-                    delete all list
-                </Button>
-            </div>
-            <div style={{
-                width: '28%',
-                top: '-400px',
-                position: 'relative',
-                left: '51%',
-                padding: '10px',
-                backgroundColor: '#f9f9f9',
-                overflow: 'auto',
-                maxHeight: '200px',
-            }}>
+
+                <div>
+                    <Button variant="outlined" endIcon={<AddCircleOutlineIcon />}
+                        onClick={() => ToKeep(toShow)}
+                        style={{ position: 'relative', top: '-420px', left: '21%', fontSize: '-50px' }}>
+                        Add
+                    </Button>
+                </div>
+                <div>
+                    <Button variant="outlined" endIcon={<DeleteOutlineIcon />}
+                        onClick={() => sendTobla()}
+                        style={{ position: 'relative', top: '-456px', left: '11%', fontSize: '-50px' }}>
+                        delete all list
+                    </Button>
+                </div>
+
                 <List sx={{ width: '100%', maxWidth: 410, bgcolor: 'background.paper' }}>
                     {toKeep.map((value) => (
                         <ListItem
-                            style={{ fontFamily: "cursive", fontSize: "4px", left: "10%", position: 'inherit', width: '80%', padding: '8px' }}
+                            style={{
+                                fontFamily: "cursive",
+                                fontSize: "4px",
+                                position: 'inherit',
+                                width: '80%',
+                                padding: '8px',
+                                width: '28%',
+                                top: '-430px',
+                                position: 'relative',
+                                left: '240%',
+                                padding: '10px',
+                                overflow: 'auto',
+                                maxHeight: '200px',
+                            }}
                             key={value.Name}
                             disableGutters
                             secondaryAction={
@@ -139,15 +140,16 @@ const TLCcheckBox = (props) => {
                         </ListItem>
                     ))}
                 </List>
-            </div>
-            <div>
-                <Button variant="outlined" endIcon={<SendIcon />} onClick={() => sendTobla()}
-                    style={{ position: 'absolute', top: '550px', left: '83%', fontSize: '20px' }}
-                >
-                    Send to bla
-                </Button>
 
-            </div>
+                <div>
+                    <Button variant="outlined" endIcon={<SendIcon />} onClick={() => sendTobla()}
+                        style={{ position: 'absolute', top: '550px', left: '83%', fontSize: '20px' }}
+                    >
+                        Send to bla
+                    </Button>
+
+                </div>
+            {/* </main> */}
         </>
     )
 }

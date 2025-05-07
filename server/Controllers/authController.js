@@ -25,7 +25,7 @@ const login = async (req, res) => {
 }
 
 const register = async (req, res) => {
-    const { username, password, name, email, phone } = req.body
+    const { username, password, name, email, phone ,roles} = req.body
     if (!name || !username || !password) {
         return res.status(400).json({ message: 'All fields are required' })
     }
@@ -34,7 +34,7 @@ const register = async (req, res) => {
         return res.status(409).json({ message: "Duplicate username" })
     }
     const hashedPwd = await bcrypt.hash(password, 10)
-    const userObject = { name, email, username, phone, password: hashedPwd }
+    const userObject = { name, email, username, phone, password: hashedPwd ,roles}
     const user = await User.create(userObject)
     if (user) {
         return res.status(201).json({

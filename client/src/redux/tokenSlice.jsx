@@ -13,11 +13,11 @@ const tokenSlice = createSlice({
             console.log(state.user);
         },
         logOut(state) {
-            state.token = null; // איפוס הטוקן
-            state.user = {};    // איפוס פרטי המשתמש
+            state.token = null; 
+            state.user = {};    
         }
     }
 })
 
-export const { setToken, logOut } = tokenSlice.actions
+export const {token, setToken, logOut } = tokenSlice.actions
 export default tokenSlice.reducer

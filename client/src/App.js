@@ -11,6 +11,7 @@ import CreateTlc from './componnents/TLCcomp/TLCpage';
 import { Routes,Route,Router } from 'react-router-dom';
 import Home from './componnents/HomeComp/HomePage';
 import LogIn from './componnents/LogInPage';
+import Registerr from './componnents/RegisterPage';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       
       <Routes>
       <Route path="/" element={<LogIn />} />
+      <Route path="/Registerr" element={<Registerr/>} />
         <Route path="/Home" element={<Home />} />
           <Route path="/TLM" element={<TlmTable />} />
           <Route path="/TLC" element={<CreateTlc />} />
