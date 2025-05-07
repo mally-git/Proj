@@ -26,23 +26,38 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
     const { username, password, name, email, phone ,roles} = req.body
-    if (!name || !username || !password) {
-        return res.status(400).json({ message: 'All fields are required' })
-    }
+    console.log( username, password, name, email, phone ,roles);
+    
+    // if (!name || !username || !password ||) {
+    //     return res.status(400).json({ message: 'All fields are required' })
+    // }
+
+    // if (email && !/\S+@\S+\.\S+/.test(email)) {
+    //     return res.status(400).json({ message: 'error email' })
+    // }
+    
+    // if (phone && !/^\d{10}$/.test(phone)) {
+    //     return res.status(400).json({ message: 'error number' })
+    // }
+
+    console.log('1');
+    
     const duplicate = await User.findOne({ username: username }).lean()
     if (duplicate) {
         return res.status(409).json({ message: "Duplicate username" })
     }
+    console.log('2');
     const hashedPwd = await bcrypt.hash(password, 10)
+    console.log('3');
     const userObject = { name, email, username, phone, password: hashedPwd ,roles}
+    console.log('4');
     const user = await User.create(userObject)
-    if (user) {
-        return res.status(201).json({
-            message: user
-            //`New user ${user.username} created`
-        })
-    } else {
+    if (!user) {
+        console.log('6');
         return res.status(400).json({ message: 'Invalid user received' })
-    }
+       
+    } 
+    console.log('5',user);
+    return res.json(user).status(201)
 }
 module.exports = { login, register }

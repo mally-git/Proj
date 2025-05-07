@@ -14,15 +14,15 @@ const TlmTable = () => {
     const [isActive, setIsActive] = useState(true);
     const tlmDataRef = useRef(tlmData);
 
-    // useEffect(() => {
-    //     console.log('isActive', isActive);
-    //     if (!isActive) {
-    //         return
-    //     }
-    //     getData()
-    //     const interval = setInterval(getData, 500);
-    //     return () => clearInterval(interval);
-    // }, [isActive]);
+    useEffect(() => {
+        console.log('isActive', isActive);
+        if (!isActive) {
+            return
+        }
+        getData()
+        const interval = setInterval(getData, 500);
+        return () => clearInterval(interval);
+    }, [isActive]);
 
 
     // useEffect(() => {

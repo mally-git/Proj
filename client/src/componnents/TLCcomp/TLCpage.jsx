@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios'
 import TLCcheckBox from './TLClist';
 import { Card } from '@mui/material';
-
+import Alert from '@mui/material/Alert';
 import TlcAdd from './TLCadd';
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 const CreateTlc = () => {
     const [tlcData, setTlcData] = useState([]);
     const [checked, setChecked] = useState([0]);
+    const [showAlert, setShowAlert] = useState(false); 
+
     const token = useSelector((state) => state.token.token || '')
 
     useEffect(() => {
@@ -110,12 +112,22 @@ const CreateTlc = () => {
             </Card>
 
 
-            <Button variant="outlined" endIcon={<SendIcon />} onClick={() => saveToCheckBox(checked)}
+            <Button variant="outlined" endIcon={<SendIcon />}  onClick={() => {
+                    saveToCheckBox(checked);
+                    setShowAlert(true);
+                    setTimeout(() => setShowAlert(false), 1000);
+                }}
                 style={{ position: 'relative', top: '5%', right: '30%', fontSize: '20px' }}
             >
                 Send
             </Button>
-
+           
+            
+            {showAlert && (
+                <Alert severity="success" sx={{ mt: 1,width:"20%" }}>
+                    This is a success alert.
+                </Alert>
+            )}
 
             <TLCcheckBox checked={checked} setChecked={setChecked} />
         </>
